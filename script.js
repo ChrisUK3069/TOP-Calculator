@@ -22,26 +22,32 @@ function divide(number1, number2) {
 
 function operate(operand, value1, value2) {
     if (operand === "+") {
-        return add(value1, value2);
+        primaryValue = add(value1, value2);
+        Display.textContent = primaryValue;
     } else if (operand === "-") {
-         return subtract(value1, value2);
+        primaryValue =  subtract(value1, value2);
+        Display.textContent = primaryValue;
     } else if (operand === "*") {
-         return multiply(value1, value2);
+        primaryValue =  multiply(value1, value2);
+        Display.textContent = primaryValue;
         } else {
-         return divide(value1, value2);
+            primaryValue =  divide(value1, value2);
+            Display.textContent = primaryValue;
         }
     }
 
 function screenUpdate(number) {
 
-    if (primaryValue === "") {
+    if (primaryValue === "") {  // erases contents of screen from previous entry.
         Display.textContent = "";
     }
 
-    screenValue = screenValue + `${number}`;
-    Display.textContent = screenValue;
-    primaryValue = parseInt(screenValue);
-    console.log(primaryValue);
+
+        screenValue = screenValue + `${number}`;
+        Display.textContent = screenValue;
+        primaryValue = parseInt(screenValue);
+        console.log(primaryValue);
+
     
 }
 
@@ -104,15 +110,22 @@ btnAC.addEventListener('click', function (e) {
     Display.textContent = screenValue;
     screenValue = "";
     operand = "";
+    displayOperand.textContent = "";
 
 });
 
 const btnAdd = document.querySelector("#plu");
 btnAdd.addEventListener('click', function (e) {
-    operand = "+";
-    Display.textContent = screenValue;
-    secondaryValue = primaryValue;
-    primaryValue = "";
+    
+    if (primaryValue !== "" && secondaryValue !== "") {
+        operate(operand, primaryValue, secondaryValue);
+    } else {    
+        operand = "+";
+        displayOperand.textContent = operand;
+        secondaryValue = primaryValue;
+        primaryValue = "";
+        screenValue = "";
+    }
 });
 
 const btnMinus = document.querySelector("#min");
@@ -131,9 +144,14 @@ btnDivide.addEventListener('click', function (e) {
     operand = "/";
 });
 
-const Display = document.querySelector("#displayText");
+const btnEqual = document.querySelector("#equ");
+btnEqual.addEventListener('click', function (e) {
 
-console.log(operate("+", 4, 2));
-console.log(operate("-", 15, 2));
-console.log(operate("*", 5, 3));
-console.log(operate("/", 12, 4));
+    screenValue = "";
+    Display.textContent = "";
+    operate(operand, primaryValue, secondaryValue);
+
+});
+
+const Display = document.querySelector("#displayText");
+const displayOperand = document.querySelector("#disOperand");
