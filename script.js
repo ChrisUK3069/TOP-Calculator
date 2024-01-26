@@ -5,10 +5,11 @@ let displayValue;
 let screenValue = "";
 let sum = "";
 
-console.log("Starting values of primaryValue and secondaryValue: " + primaryValue +  "+" +  secondaryValue);
 function add(number1, number2) {
     console.log("function add:" + number1, number2);
      sum = number1 + number2;
+     console.log("SUM: " + sum);
+     console.log(typeof sum);
      return sum;
 }
 
@@ -133,7 +134,8 @@ btnAdd.addEventListener('click', function (e) {
     operand = "+";
     displayOperand.textContent = operand;
 
-    primaryValue = parseInt(primaryValue);
+    primaryValue = parseFloat(primaryValue);
+    console.log(typeof primaryValue);
     if (secondaryValue === "") {    // To run on first entry
         secondaryValue = primaryValue;
         primaryValue = "";
@@ -148,6 +150,7 @@ btnAdd.addEventListener('click', function (e) {
         } else {
             console.log("function btnAdd, both values full, pre operate() call" + sum)
             sum = operate(operand, sum, primaryValue);
+            sum = Math.round(sum * 10) / 10;
             console.log("function btnAdd, both values full, post operate() call" + sum)
             screenUpdate(sum);
             primaryValue = "";
@@ -164,7 +167,7 @@ btnMinus.addEventListener('click', function (e) {
     operand = "-";
     displayOperand.textContent = operand;
 
-    primaryValue = parseInt(primaryValue);
+    primaryValue = parseFloat(primaryValue);
     if (secondaryValue === "") {    // To run on first entry
         secondaryValue = primaryValue;
         primaryValue = "";
@@ -179,6 +182,7 @@ btnMinus.addEventListener('click', function (e) {
         } else {
             console.log("function btnAdd, both values full, pre operate() call" + sum)
             sum = operate(operand, sum, primaryValue);
+            sum = Math.round(sum * 10) / 10;
             console.log("function btnAdd, both values full, post operate() call" + sum)
             screenUpdate(sum);
             primaryValue = "";
@@ -193,7 +197,7 @@ btnMultiply.addEventListener('click', function (e) {
     operand = "*";
     displayOperand.textContent = operand;
 
-    primaryValue = parseInt(primaryValue);
+    primaryValue = parseFloat(primaryValue);
     if (secondaryValue === "") {    // To run on first entry
         secondaryValue = primaryValue;
         primaryValue = "";
@@ -208,6 +212,7 @@ btnMultiply.addEventListener('click', function (e) {
         } else {
             console.log("function btnAdd, both values full, pre operate() call" + sum)
             sum = operate(operand, sum, primaryValue);
+            sum = Math.round(sum * 10) / 10;
             console.log("function btnAdd, both values full, post operate() call" + sum)
             screenUpdate(sum);
             primaryValue = "";
@@ -223,7 +228,7 @@ btnDivide.addEventListener('click', function (e) {
     operand = "/";
     displayOperand.textContent = operand;
 
-    primaryValue = parseInt(primaryValue);
+    primaryValue = parseFloat(primaryValue);
     if (secondaryValue === "") {    // To run on first entry
         secondaryValue = primaryValue;
         primaryValue = "";
@@ -238,6 +243,8 @@ btnDivide.addEventListener('click', function (e) {
         } else {
             console.log("function btnAdd, both values full, pre operate() call" + sum)
             sum = operate(operand, sum, primaryValue);
+            sum = Math.round(sum * 10) / 10;
+            
             console.log("function btnAdd, both values full, post operate() call" + sum)
             screenUpdate(sum);
             primaryValue = "";
@@ -248,19 +255,27 @@ btnDivide.addEventListener('click', function (e) {
 const btnEqual = document.querySelector("#equ");
 btnEqual.addEventListener('click', function (e) {
 
-    primaryValue = parseInt(primaryValue);
+    primaryValue = parseFloat(primaryValue);
     if (secondaryValue === "") {    // no other value to operate on
         displayOperand.textContent = "";
         operand = "=";
         displayOperand.textContent = operand;
     } else {  
-        console.log("function btnAdd, both values full, pre operate() call" + sum)
         sum = operate(operand, secondaryValue, primaryValue);
-        console.log("function btnAdd, both values full, post operate() call" + sum)
+        sum = Math.round(sum * 10) / 10;
         screenUpdate(sum);
-        primaryValue = "";
+        primaryValue = sum;
+        secondaryValue = "";
+        sum = "";
+        
     }
     
+});
+
+const btnDot = document.querySelector("#dot");
+btnDot.addEventListener('click', function (e) {
+    primaryValue = primaryValue + ".";
+    screenUpdate(primaryValue);
 });
 
 const Display = document.querySelector("#displayText");
