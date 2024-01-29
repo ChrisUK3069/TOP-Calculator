@@ -10,18 +10,28 @@ body {
     display:flex;
     flex-direction: column;
     align-items: center;
-    width: 380px;
+    width: 360px;
     padding: 30px 1px;
     border: 1px solid grey;
 }
 
-#displayText {
+#display {
     display:flex;
+    flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    border: 1px solid black;
+    border: 1px solid orange;
     width: 275px;
-    height: 35px;
+    height: 55px;
+}
+
+#disOperand {
+    border: 1px solid red;
+}
+
+#displayText {
+    border: 1px solid red;
+    font-size: 22px;
 }
 
 #label {
@@ -31,15 +41,36 @@ body {
 #buttons {
     display:flex;
     flex-direction: column;
-    border: 1px solid blue;
+    
 }
 
 .button {
-    padding: 15px 25px;
-    margin: 2px 2px;
+    font-size: 16px;
+    text-align: center;
+    width: 25px;
+    padding: 15px 35px;
+    margin: 4px 4px;
     display:inline-block;
     border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px #999;
 }
-#equal {
-    background-color: lightskyblue;
+
+
+.button:active {
+    background-color: #999;
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
+}
+
+#equ {
+    background-color: #FABB84;
+}
+
+#plu, #min, #div, #mul {
+    background-color: #9CE0FC;
+}
+
+#plu {
+
 }
